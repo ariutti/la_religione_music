@@ -90,7 +90,7 @@ path.entries.do({
 		\multiplier, Prand( [4, 8], inf),
 		\freq, Prand([ 384, 320 ], inf) * Pkey(\multiplier),
 		\dur, Pwhite(0.5,1,inf),
-		\out, Pindex(~array_bus, Prand((0..7), inf) )
+		\out, Pindex(~array_bus_out, Prand((0..7), inf) )
 )).asEventStreamPlayer;
 
 ~task_firefly = Task({

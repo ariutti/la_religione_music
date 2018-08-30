@@ -13,7 +13,7 @@ s.freqscope;
 
 (
 // click all
-8.do {
+~nspeakers.do {
 	|item|
 	~ctrl.sendMsg("/method/clicked", item);
 }
@@ -21,12 +21,8 @@ s.freqscope;
 
 (
 // release all
-8.do {
+~nspeakers.do {
 	|item|
 	~ctrl.sendMsg("/method/released", item);
 }
 )
-
-
-
-

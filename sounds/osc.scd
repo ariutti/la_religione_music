@@ -14,7 +14,7 @@
 			//"true condition".postln;
 
 			// fade out on the "i" output stage
-			~array_out[ msg[1] ].set(\level, 0.05, \lagTime, 0.5);
+			~array_outputStages[ msg[1] ].set(\level, 0.05, \lagTime, 0.5);
 
 			// call a function to play more than one firefly
 			// at the selected speaker position
@@ -40,7 +40,7 @@
 	if( msg[1]>=0 && msg[1]<8,
 		{
 			//"condizione vera".postln;
-			~array_out[ msg[1] ].set(\level, 1.0, \lagTime, 5);
+			~array_outputStages[ msg[1] ].set(\level, 1.0, \lagTime, 5);
 		},
 		{
 			//"condizione falsa".postln;
@@ -59,7 +59,7 @@
 	postln("func 'sound' " ++ msg[1] );
 
 	if( msg[1]==1, {
-		~array_out.do{
+		~array_outputStages.do{
 			|item|
 			//item.postln;
 			item.set(\level, 1.0, \lagTime, 5);
@@ -67,7 +67,7 @@
 		~task_firefly.start;
 	},
 	{
-		~array_out.do{
+		~array_outputStages.do{
 			|item|
 			//item.postln;
 			item.set(\level, 0.0, \lagTime, 3);
