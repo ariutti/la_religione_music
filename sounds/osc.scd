@@ -9,12 +9,12 @@
 ~osc_clicked = OSCFunc({
 	| msg, time, addr, recvPort |
 	postln("Clicked (index" + msg[1] + ").");
-	if( msg[1]>=0 && msg[1]<8,
+	if( msg[1].asInt>=0 && msg[1].asInt<8,
 		{
 			//"true condition".postln;
 
 			// fade out on the "i" output stage
-			~array_out[ msg[1] ].set(\level, 0.05, \lagTime, 0.5);
+			~array_out[ msg[1].asInt ].set(\level, 0.05, \lagTime, 0.5);
 
 			// call a function to play more than one firefly
 			// at the selected speaker position
@@ -22,14 +22,14 @@
 
 			// call the function to play the
 			// corresponding religion sound
-			~parseReligion.value( msg[1] );
+			~parseReligion.value( msg[1].asInt );
 		},
 		{
 			//"condizione falsa".postln;
 			"Invalid index".postln;
 		}
 	);
-}, "/method/clicked", recvPort:15300);
+}, "/sc/clicked", recvPort:15300);
 
 
 
@@ -37,28 +37,25 @@
 ~osc_released = OSCFunc({
 	| msg, time, addr, recvPort |
 	postln("Relesaed (index" + msg[1] + ").");
-	if( msg[1]>=0 && msg[1]<8,
+	if( msg[1].asInt>=0 && msg[1].asInt<8,
 		{
 			//"condizione vera".postln;
-			~array_out[ msg[1] ].set(\level, 1.0, \lagTime, 5);
+			~array_out[ msg[1].asInt ].set(\level, 1.0, \lagTime, 5);
 		},
 		{
 			//"condizione falsa".postln;
 			"Invalid index".postln;
 		}
 	);
-}, "/method/released", recvPort:15300);
+}, "/sc/released", recvPort:15300);
 
 
 
-
-
-// TODO: add a "statup sound" OSC function
 ~osc_sound = OSCFunc({
 	| msg, time, addr, recvPort |
-	postln("func 'sound' " ++ msg[1] );
+	postln("func 'sound' " ++ msg[1].asInt );
 
-	if( msg[1]==1, {
+	if( msg[1].asInt==1, {
 		~array_out.do{
 			|item|
 			//item.postln;
@@ -74,4 +71,19 @@
 		};
 		~task_firefly.stop;
 	});
-}, "/method/sound", recvPort:15300);
+}, "/sc/sound", recvPort:15300);
+
+
+// a function to be called when you want to kill the server
+// just before exiting the application
+~osc_killserver = OSCFunc({
+	| msg, time, addr, recvPort |
+	postln("func 'killserver' " ++ msg[1].asInt );
+
+	if( msg[1].asInt == 1,
+	{
+		"Now server is quitting".postln;
+		s.freeAll();
+		s.quit();
+	});
+}, "/sc/killserver", recvPort:15300);

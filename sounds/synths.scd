@@ -9,11 +9,15 @@
 
 // create the synth definitions
 SynthDef(\outputStage, {
-	|in=0, out=0, level=0, lagTime=5 | //gate_fade=1, lowLevel = 0.01, highLevel=1.0, inTime=5, outTime=0.5|
-	var sig; //, fade;
+	|
+	in=0, out=0, level=0, lagTime=5, amp=1.0 //gate_fade=1, lowLevel = 0.01, highLevel=1.0, inTime=5, outTime=0.5|
+	freq = 1500, q=1, db=(-3)
+	|
+	var sig;
 	sig = In.ar( in );
+	sig = MidEQ.ar(sig, freq, q.reciprocal, db);
 	//fade = EnvGen.ar(Env.new([lowLevel, highLevel, lowLevel],[inTime, outTime],releaseNode:1), gate_fade);
-	sig = sig * VarLag.kr( level, lagTime ); //*fade;
+	sig = sig * VarLag.kr( level, lagTime ) * amp; // use amp if you want to have an overall volume controll
 	Out.ar(out, sig);
 }).add;
 
@@ -67,7 +71,7 @@ SynthDef(\tabla, {
 	sig = PlayBuf.ar(2, buf, BufRateScale.kr(buf)*rate, doneAction:2);
 	//sig = FreeVerb.ar(sig, 0.05, 2);
 	sig = sig * amp * 3;
-	Out.ar(out, sig!2);
+	Out.ar(out, Mix.ar(sig) );
 }).add;
 
 

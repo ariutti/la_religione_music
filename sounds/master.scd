@@ -4,11 +4,20 @@
 // server settings;
 s=Server.local;
 //s.options.device = "ASIO : US-16x08 ASIO";
+s.options.device = "MME : Altoparlanti (Dispositivo High";
+//s.options.device = "Windows DirectSound : Altoparlanti (io|2)";
 
 s.options.numOutputBusChannels = 8; // we will have a speaker for each religion (8)
 s.options.numInputBusChannels = 2;
-//s.meter;
-//s.plotTree;
+
+//s.options.sampleRate = 44100;
+
+/*
+s.options.memSize = 8192;//s.options.memSize*64;
+s.options.blockSize = 64; // increase block size (default is 64)
+s.options.sampleRate = 48000;// increase sampling rate (if your hardware supports it)
+*/
+
 
 s.waitForBoot({
 
