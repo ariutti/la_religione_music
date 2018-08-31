@@ -41,7 +41,7 @@ path.entries.do({
 //"DEBUG 2".postln;
 //~dic_tabla.postln;
 
-~output_tabla = 6; // should be 6
+~output_tabla = (6+2); // should be 6
 // we can create a Pbind for each family of samples
 ~score_tabla_hihit = Pbind(
 	\instrument, \tabla,
@@ -97,7 +97,7 @@ path.entries.do({
 		\multiplier, Prand( [4, 8], inf),
 		\freq, Prand([ 384, 320 ], inf) * Pkey(\multiplier),
 		\dur, Pwhite(0.5,1,inf),
-		\out, Pindex(~array_bus, Prand((0..7), inf) )
+		\out, Pindex(~array_bus_out, Prand((0..7), inf) )
 )).asEventStreamPlayer;
 
 ~task_firefly = Task({
@@ -108,7 +108,7 @@ path.entries.do({
 	});
 });
 
-
+// not used anymore
 ~func_clicked_firefly = {
 	| idx |
 	idx.postln;
@@ -133,7 +133,7 @@ path.entries.do({
 ~notesB1   = [63, 63, 63, 63, 65, 63, 62, 62, 60, 59, 60];
 ~durationB1 = [0.66,0.66,0.66,0.66,0.66,0.66,2,0.66,0.66,0.66,4];
 
-~output_cattolicesimo = 1; // should be 1
+~output_cattolicesimo = (1+2); // should be 1
 
 ~score_glokenspiel = Pbind(
 	\instrument, \bell,
@@ -233,7 +233,7 @@ path.entries.do({
 					\bufnum, ~samples_ebraismo.choose,
 					\rls, 7,
 					\amp, 1.0,
-					\out, msg
+					\out, (msg+2)
 					//\out, 0
 				]
 			);
@@ -251,7 +251,7 @@ path.entries.do({
 					\bufnum, ~sample_islam,
 					\rls, 6,
 					\amp, 1.0,
-					\out, msg
+					\out, (msg+2)
 					//\out, 0
 				]
 			);
@@ -264,7 +264,7 @@ path.entries.do({
 					\bufnum, ~samples_protestantesimo[1],
 					\rls, 7,
 					\amp, 1.0,
-					\out, msg
+					\out, (msg+2)
 					//\out, 0
 				]
 			);
@@ -275,7 +275,7 @@ path.entries.do({
 				[
 					\bufnum, ~sample_sick,
 					\amp, 1.0,
-					\out, msg
+					\out, (msg+2)
 					//\out, 0
 
 				]
@@ -288,7 +288,7 @@ path.entries.do({
 					\fs, 72.midicps,
 					\t60, 8,
 					\pitchy, 0.6,
-					\out, msg
+					\out, (msg+2)
 					//\out, 0
 			]);
 		},
@@ -304,7 +304,7 @@ path.entries.do({
 					\bufnum, ~sample_ateismo,
 					\rls, 6,
 					\amp, 1.0,
-					\out, msg
+					\out, (msg+2)
 					//\out, 0
 				]
 			);

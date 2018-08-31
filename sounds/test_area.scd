@@ -8,38 +8,37 @@ s.freqscope;
 
 ~ctrl.sendMsg("/sc/sound", 1);
 ~ctrl.sendMsg("/sc/sound", 0);
-~ctrl.sendMsg("/sc/clicked", 0);
+~ctrl.sendMsg("/sc/clicked", 7);
 ~ctrl.sendMsg("/sc/released", 1);
 
 (
 // click all
-8.do {
+~nspeakers.do {
 	|item|
-	~ctrl.sendMsg("/method/clicked", item);
+	~ctrl.sendMsg("/sc/clicked", item);
 }
 )
 
 (
 // release all
-8.do {
+~nspeakers.do {
 	|item|
-	~ctrl.sendMsg("/method/released", item);
+	~ctrl.sendMsg("/sc/released", item);
 }
 )
 
 (
-~array_out.do {
+~array_outputStages.do {
 	|item|
 	item.set(\amp, 1.0);
 };
 )
 
 (
-~array_out.do {
+~array_outputStages.do {
 	|item|
 	item.set(\freq, 1.0);
 	item.set(\q, 10);
 	item.set(\dB, (-3) );
 };
 )
-

@@ -7,10 +7,13 @@ s=Server.local;
 s.options.device = "MME : Altoparlanti (Dispositivo High";
 //s.options.device = "Windows DirectSound : Altoparlanti (io|2)";
 
-s.options.numOutputBusChannels = 8; // we will have a speaker for each religion (8)
-s.options.numInputBusChannels = 2;
+// Set here the total number of indipendent speakers
+~nspeakers = 8;
 
-//s.options.sampleRate = 44100;
+s.options.numOutputBusChannels_(~nspeakers+2); // we will have a speaker for each religion (8)
+s.options.numInputBusChannels_(2);
+//s.meter;
+//s.plotTree;
 
 /*
 s.options.memSize = 8192;//s.options.memSize*64;
@@ -34,32 +37,32 @@ s.waitForBoot({
 	~grp_syn = Group.new(~grp_out, \addBefore);
 
 	// create the arrays
-	~array_bus = ~array_bus ? [];
-	~array_out = ~array_out ? [];
+	~array_bus_out = ~array_bus_out ? [];
+	~array_outputStages = ~array_outputStages ? [];
 
 	// Populate the arrays:
 	// - create busses;
 	// - create output stages;
-	s.options.numOutputBusChannels.do(
+	~nspeakers.do(
 		{
 			|item|
 			//("Item "+item).postln;
-			~array_bus = ~array_bus.add(
+			~array_bus_out = ~array_bus_out.add(
 				Bus.audio(s, 1);
 			);
 
-			~array_out = ~array_out.add(
-				Synth(\outputStage, [\in, ~array_bus[item], \out, item], target:~grp_out);
+			~array_outputStages = ~array_outputStages.add(
+				Synth(\outputStage, [\in, ~array_bus_out[item], \out, (item+2)], target:~grp_out);
 			);
 	});
 
-	Synth(\drone, [\out, ~array_bus, \freq, 32, \mix, 0.1,  \detune, 0.5, \amp, 0.7], target:~grp_syn);
-	Synth(\drone, [\out, ~array_bus, \freq, 64, \mix, 0.3,  \detune, 1,   \amp, 0.25], target:~grp_syn);
-	Synth(\drone, [\out, ~array_bus, \freq, 96, \mix, 0.5,  \detune, 1.1, \amp, 0.25*0.9], target:~grp_syn);
-	Synth(\drone, [\out, ~array_bus, \freq, 128,\mix, 0.7,  \detune, 1.2, \amp, 0.25*0.7], target:~grp_syn);
-	Synth(\drone, [\out, ~array_bus, \freq, 192,\mix, 0.9,  \detune, 1.4, \amp, 0.25*0.5], target:~grp_syn);
-	Synth(\drone, [\out, ~array_bus, \freq, 256,\mix, 0.99, \detune, 1.6, \amp, 0.25*0.2], target:~grp_syn);
-	Synth(\drone, [\out, ~array_bus, \freq, 320,\mix, 0.99, \detune, 2,   \amp, 0.25*0.3], target:~grp_syn);
+	Synth(\drone, [\out, ~array_bus_out, \freq, 32, \mix, 0.1,  \detune, 0.5, \amp, 0.7], target:~grp_syn);
+	Synth(\drone, [\out, ~array_bus_out, \freq, 64, \mix, 0.3,  \detune, 1,   \amp, 0.25], target:~grp_syn);
+	Synth(\drone, [\out, ~array_bus_out, \freq, 96, \mix, 0.5,  \detune, 1.1, \amp, 0.25*0.9], target:~grp_syn);
+	Synth(\drone, [\out, ~array_bus_out, \freq, 128,\mix, 0.7,  \detune, 1.2, \amp, 0.25*0.7], target:~grp_syn);
+	Synth(\drone, [\out, ~array_bus_out, \freq, 192,\mix, 0.9,  \detune, 1.4, \amp, 0.25*0.5], target:~grp_syn);
+	Synth(\drone, [\out, ~array_bus_out, \freq, 256,\mix, 0.99, \detune, 1.6, \amp, 0.25*0.2], target:~grp_syn);
+	Synth(\drone, [\out, ~array_bus_out, \freq, 320,\mix, 0.99, \detune, 2,   \amp, 0.25*0.3], target:~grp_syn);
 
 	s.sync;
 
