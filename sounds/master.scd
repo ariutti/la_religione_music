@@ -8,7 +8,7 @@ s=Server.local;
 // Set here the total number of indipendent speakers
 ~nspeakers = 8;
 
-s.options.numOutputBusChannels_(~nspeakers); // we will have a speaker for each religion (8)
+s.options.numOutputBusChannels_(~nspeakers+2); // we will have a speaker for each religion (8)
 s.options.numInputBusChannels_(2);
 //s.meter;
 //s.plotTree;
@@ -43,7 +43,7 @@ s.waitForBoot({
 			);
 
 			~array_outputStages = ~array_outputStages.add(
-				Synth(\outputStage, [\in, ~array_bus_out[item], \out, item], target:~grp_out);
+				Synth(\outputStage, [\in, ~array_bus_out[item], \out, (item+2)], target:~grp_out);
 			);
 	});
 

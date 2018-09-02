@@ -40,7 +40,7 @@ path.entries.do({
 	\instrument, \tabla,
 	\buf, Pindex( ~dic_tabla[ \hihit ], Prand((0..(~dic_tabla[ \hihit ].size-1)), 1), 1),
 	\dur, 0.182, //Pwhite(0.125, 1, 1)
-	\out, 3
+	\out, 3+2
 );
 
 ~score_tabla_dead = Pbind(
