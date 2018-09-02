@@ -4,6 +4,8 @@
 // server settings;
 s=Server.local;
 //s.options.device = "ASIO : US-16x08 ASIO";
+s.options.device = "MME : Altoparlanti (Dispositivo High";
+//s.options.device = "Windows DirectSound : Altoparlanti (io|2)";
 
 // Set here the total number of indipendent speakers
 ~nspeakers = 8;
@@ -12,6 +14,13 @@ s.options.numOutputBusChannels_(~nspeakers+2); // we will have a speaker for eac
 s.options.numInputBusChannels_(2);
 //s.meter;
 //s.plotTree;
+
+/*
+s.options.memSize = 8192;//s.options.memSize*64;
+s.options.blockSize = 64; // increase block size (default is 64)
+s.options.sampleRate = 48000;// increase sampling rate (if your hardware supports it)
+*/
+
 
 s.waitForBoot({
 
