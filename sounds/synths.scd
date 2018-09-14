@@ -68,7 +68,7 @@ SynthDef(\drone, {
 	//sig = FreeVerb.ar(sig, drywet);
 	//sig = sig + CombN.ar(sig, 1.8, drywet, 1.5);
 
-	sig = sig * LFNoise1.kr( Rand(0.1, 0.5) ).range(0.1, 1.0) * amp * 0.5;
+	sig = sig * LFNoise1.kr( Rand(0.1, 0.5) ).range(0.7, 1.0) * amp;
 
 	// stereo pan
 	//Out.ar(0, Pan2.ar(sig,LFNoise1.kr( Rand(0.05, 0.2) )) );
@@ -96,7 +96,7 @@ SynthDef(\tabla, {
 	var sig, env;
 	sig = PlayBuf.ar(2, buf, BufRateScale.kr(buf)*rate, doneAction:2);
 	//sig = FreeVerb.ar(sig, 0.05, 2);
-	sig = sig * amp * 3;
+	sig = sig * amp * 6;
 	Out.ar(out, Mix.ar(sig) );
 }).add;
 

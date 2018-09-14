@@ -3,6 +3,31 @@
 ~ctrl = NetAddr("127.0.0.1", 15300);
 
 
+
+~osc_sound = OSCFunc({
+	| msg, time, addr, recvPort |
+	postln("func 'sound' " ++ msg[1].asInt );
+
+	if( msg[1]==1, {
+		~array_outputStages.do{
+			|item|
+			//item.postln;
+			item.set(\level, 1.0, \lagTime, 5);
+		};
+		~task_firefly.start;
+	},
+	{
+		~array_outputStages.do{
+			|item|
+			//item.postln;
+			item.set(\level, 0.0, \lagTime, 3);
+		};
+		~task_firefly.stop;
+	});
+}, "/sc/sound", recvPort:15300);
+
+
+
 // clicked function
 ~osc_clicked = OSCFunc({
 	| msg, time, addr, recvPort |
@@ -48,29 +73,6 @@
 	);
 }, "/sc/released", recvPort:15300);
 
-
-
-~osc_sound = OSCFunc({
-	| msg, time, addr, recvPort |
-	postln("func 'sound' " ++ msg[1].asInt );
-
-	if( msg[1]==1, {
-		~array_outputStages.do{
-			|item|
-			//item.postln;
-			item.set(\level, 1.0, \lagTime, 5);
-		};
-		~task_firefly.start;
-	},
-	{
-		~array_outputStages.do{
-			|item|
-			//item.postln;
-			item.set(\level, 0.0, \lagTime, 3);
-		};
-		~task_firefly.stop;
-	});
-}, "/sc/sound", recvPort:15300);
 
 
 // a function to be called when you want to kill the server
