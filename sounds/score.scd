@@ -41,7 +41,8 @@ path.entries.do({
 //"DEBUG 2".postln;
 //~dic_tabla.postln;
 
-~output_tabla = (6+2); // should be 6
+~output_tabla = (6+~spk_offset); // should be 6
+
 // we can create a Pbind for each family of samples
 ~score_tabla_hihit = Pbind(
 	\instrument, \tabla,
@@ -97,6 +98,7 @@ path.entries.do({
 		\multiplier, Prand( [4, 8], inf),
 		\freq, Prand([ 384, 320 ], inf) * Pkey(\multiplier),
 		\dur, Pwhite(0.5,1,inf),
+		\amp, 0.0625,
 		\out, Pindex(~array_bus_out, Prand((0..7), inf) )
 )).asEventStreamPlayer;
 
@@ -131,18 +133,19 @@ path.entries.do({
 ~durationB = [1,1,0.5,1,0.5, 0.5,0.5,0.5,0.5,0.5,1,0.5,0.66,0.66,0.66,0.66,0.66,0.66,2,0.66,0.66,0.66,4];
 
 ~notesB1   = [63, 63, 63, 63, 65, 63, 62, 62, 60, 59, 60];
-~durationB1 = [0.66,0.66,0.66,0.66,0.66,0.66,2,0.66,0.66,0.66,4];
+~durationB1 = [0.66,0.66,0.66,0.66,0.66,0.66,2,0.66,0.66,0.66,4]*0.85;
 
-~output_cattolicesimo = (1+2); // should be 1
+~output_cattolicesimo = (1+~spk_offset); // should be 1
 
 ~score_glokenspiel = Pbind(
 	\instrument, \bell,
 	//\fs,  (Pseq( ~notesA ++ ~notesB, inf ) + 3).midicps,
 	\fs,  (Pseq( ~notesB1, inf ) + 3).midicps,
 	//\dur, Pseq( ~durationA ++ ~durationB )*0.731*Pwhite(0.98, 1.1, inf),
-	\dur, Pseq( ~durationB1 )*0.731*Pwhite(0.98, 1.1, inf),
+	\dur, Pseq( ~durationB1 )*0.731*Pwhite(0.97, 1.3, inf),
 	\t60, 4,
 	\pitchy, 4,
+	\amp, 0.125,
 	\out, ~output_cattolicesimo
 ).asEventStreamPlayer;
 
@@ -232,8 +235,8 @@ path.entries.do({
 				[
 					\bufnum, ~samples_ebraismo.choose,
 					\rls, 7,
-					\amp, 1.0,
-					\out, (msg+2)
+					\amp, 2.0,
+					\out, (msg+~spk_offset)
 					//\out, 0
 				]
 			);
@@ -250,8 +253,8 @@ path.entries.do({
 				[
 					\bufnum, ~sample_islam,
 					\rls, 6,
-					\amp, 1.0,
-					\out, (msg+2)
+					\amp, 2.0,
+					\out, (msg+~spk_offset)
 					//\out, 0
 				]
 			);
@@ -263,8 +266,8 @@ path.entries.do({
 					//\bufnum, ~samples_protestantesimo.choose,
 					\bufnum, ~samples_protestantesimo[1],
 					\rls, 7,
-					\amp, 1.0,
-					\out, (msg+2)
+					\amp, 5.0,
+					\out, (msg+~spk_offset)
 					//\out, 0
 				]
 			);
@@ -275,7 +278,7 @@ path.entries.do({
 				[
 					\bufnum, ~sample_sick,
 					\amp, 1.0,
-					\out, (msg+2)
+					\out, (msg+~spk_offset)
 					//\out, 0
 
 				]
@@ -288,7 +291,8 @@ path.entries.do({
 					\fs, 72.midicps,
 					\t60, 8,
 					\pitchy, 0.6,
-					\out, (msg+2)
+					\amp, 0.25,
+					\out, (msg+~spk_offset)
 					//\out, 0
 			]);
 		},
@@ -303,8 +307,8 @@ path.entries.do({
 				[
 					\bufnum, ~sample_ateismo,
 					\rls, 6,
-					\amp, 1.0,
-					\out, (msg+2)
+					\amp, 6,
+					\out, (msg+~spk_offset)
 					//\out, 0
 				]
 			);
